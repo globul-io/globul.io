@@ -1,0 +1,12 @@
+core23_menu:
+    groups:
+        main:
+            name: 'Main'
+            attributes:
+                class: 'nav navbar-nav navbar-main-menu'
+            items:
+                home:
+                    label: 'menu.home'
+                    label_catalogue: 'App'
+                    route: 'page_slug'
+                    routeParams: { path: '/' }

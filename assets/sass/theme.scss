@@ -1,0 +1,30 @@
+.page-header h1 {
+  width: 330px;
+  height: 110px;
+  text-indent: -9999px;
+  overflow: hidden;
+  background-image: url(/assets/img/logo.png);
+  background-repeat: no-repeat;
+  background-position: 0;
+}
+
+.page-footer {
+  text-align: right;
+}
+
+.product-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.producer-name {
+  font-size: 0.9em;
+}
+
+.product-approval {
+  font-size: 1em;
+  font-weight: normal;
+  display: block;
+  white-space: normal;
+  padding: 5px 10px;
+}

@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+    php:
+        container_name: ${PROJECT_NAME}-php
+        image: core23/symfony-php:4
+        links:
+            - mysql:${MYSQL_HOST}
+        volumes:
+            - ~/.composer:/root/.composer
+            - data:/var/www/symfony:nocopy
+
+    nginx:
+        container_name: ${PROJECT_NAME}-nginx
+        image: core23/symfony-nginx:4
+        ports:
+            - 80:80
+        volumes:
+            - data:/var/www/symfony:nocopy
+        environment:
+            SERVER_HOST: localhost
+
+    mysql:
+        container_name: ${PROJECT_NAME}-mysql
+        image: mysql:5
+        ports:
+            - 3306:3306
+        volumes:
+            - ~/.docker/${PROJECT_NAME}/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+    data:

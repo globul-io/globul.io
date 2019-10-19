@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="1">
+        <source>search_product.submit</source>
+        <target>Suchen</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>search_product.result_title</source>
+        <target>Suchergebnis</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>search_product.empty_result</source>
+        <target>Keine Produkte gefunden</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>form.label_query</source>
+        <target>Suchbegriff</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>search_product.meta_title</source>
+        <target>Produktsuche</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>search_product.meta_description</source>
+        <target>Suche nach medizinischen Produkten ob sie einen Wirkstoff enthalten, der über den Placeeffekt hinaus wirkt</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>search_product.result_pzn</source>
+        <target>PZN</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>search_product.result_name</source>
+        <target>Product</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>search_product.result_approved</source>
+        <target>Hinweis</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>search_product.result_producer</source>
+        <target>App</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>product_approved</source>
+        <target>Wissenschaftliche Wirksamkeit über den Placebo-Effekt hinaus vorhanden</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>product_not_approved</source>
+        <target>Wissenschaftliche Wirksamkeit nicht nachgewiesen</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>product_unknown_pzn</source>
+        <target>Unbekannt</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>form.placeholder_query</source>
+        <target>Produktname</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>menu.home</source>
+        <target>Home</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

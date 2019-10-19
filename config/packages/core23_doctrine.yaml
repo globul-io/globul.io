@@ -1,0 +1,3 @@
+core23_doctrine:
+    table:
+        prefix: 'core23_'

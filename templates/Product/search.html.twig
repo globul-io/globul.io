@@ -1,0 +1,65 @@
+{% include '@SonataCore/FlashMessage/render.html.twig' %}
+
+<div class="search-form">
+    {% set listResult = pager.results %}
+    {% if listResult|length > 0 %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {{ "search_product.result_title"|trans({}, 'App') }}
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th width="50%">{{ "search_product.result_name"|trans({}, 'App') }}</th>
+                        <th width="20%">{{ "search_product.result_pzn"|trans({}, 'App') }}</th>
+                        <th width="30%">{{ "search_product.result_approved"|trans({}, 'App') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in listResult %}
+                        <tr>
+                            <td>
+                                <div class="product-name">{{ item.name }}</div>
+                                <div class="producer-name">
+                                    <i class="fa fa-building-o" aria-hidden="true"></i>
+                                    {{ item.producer.name }}
+                                </div>
+                            </td>
+                            <td>
+                                {% if item.pzn %}
+                                    {{ item.pzn }}
+                                {% else %}
+                                    {{ "product_unknown_pzn"|trans({}, 'App') }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="label label-{% if item.approved %}success{% else %}warning{% endif %} product-approval">
+                                {% if item.approved %}
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    {{ "product_approved"|trans({}, 'App') }}
+                                {% else %}
+                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                    {{ "product_not_approved"|trans({}, 'App') }}
+                                {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {{ page_pager(pager, {route: 'search_product', routeParams: {
+                    'search': { 'query': filter.query }
+                }} ) }}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning alert-fixed">
+            {{ 'search_product.empty_result'|trans({}, 'App') }}
+        </div>
+    {% endif %}
+</div>

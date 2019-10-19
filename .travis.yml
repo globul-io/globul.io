@@ -1,0 +1,50 @@
+language: php
+
+php:
+  - 7.3
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - libxml2-utils
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  global:
+    - PATH="$HOME/.composer/vendor/bin:$PATH"
+    - SYMFONY_DEPRECATIONS_HELPER=max[self]=0
+    - TARGET=test
+
+stages:
+  - lint
+  - test
+
+matrix:
+  fast_finish: true
+  include:
+    - stage: lint
+      env: TARGET=lint
+    - stage: lint
+      env: TARGET=phpstan
+    - stage: lint
+      env: TARGET=checkdeps
+    - stage: test
+  allow_failures:
+    - env: TARGET=checkdeps
+
+before_install:
+  - wget "https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar" --output-document="${HOME}/bin/php-coveralls" && chmod u+x "${HOME}/bin/php-coveralls"
+  - gem install yaml-lint
+
+install:
+  - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+
+script: make $TARGET
+
+after_success:
+  - php-coveralls -v

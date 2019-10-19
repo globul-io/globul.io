@@ -1,0 +1,9 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    {% if settings.format == 'text' %}
+        {{ settings.rawContent|default('')|nl2br|converturls({target:'_blank', class:'external'}) }}
+    {% else %}
+        {{ settings.rawContent|default('')|raw|converturls({target:'_blank', class:'external'}) }}
+    {% endif %}
+{% endblock %}

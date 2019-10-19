@@ -1,0 +1,12 @@
+{
+    "require": {
+        "phpstan/phpstan": "^0.9 || ^0.10",
+        "phpstan/phpstan-doctrine": "^0.9 || ^0.10",
+        "phpstan/phpstan-phpunit": "^0.9 || ^0.10",
+        "phpstan/phpstan-symfony": "^0.10",
+        "phpstan/phpstan-deprecation-rules": "^0.10",
+        "pepakriz/phpstan-exception-rules": "^0.1"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

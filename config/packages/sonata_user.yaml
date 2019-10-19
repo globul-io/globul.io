@@ -1,0 +1,24 @@
+fos_user:
+    db_driver:      orm
+    firewall_name:  main
+    from_email:
+        address:        '%env(MAILER_SENDER)%'
+        sender_name:    '%env(MAILER_SENDER)%'
+
+    user_class:  'App\Infrastructure\Persistence\Entity\User\User'
+
+    group:
+        group_class: 'App\Infrastructure\Persistence\Entity\User\Group'
+
+sonata_user:
+    class:
+        user:   'App\Infrastructure\Persistence\Entity\User\User'
+        group:  'App\Infrastructure\Persistence\Entity\User\Group'
+
+    table:
+        user_group:           core23_user__user_group
+
+    impersonating:
+        route:                page_slug
+        parameters:           { path: / }
+

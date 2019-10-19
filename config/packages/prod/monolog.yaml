@@ -1,0 +1,23 @@
+monolog:
+    handlers:
+        main_file:
+            type:                 rotating_file
+            max_files:            30
+            action_level:         error
+            path:                 "%kernel.logs_dir%/%kernel.environment%.log"
+            level:                debug
+
+        main_mail:
+            type:                 fingers_crossed
+            action_level:         error
+            excluded_http_codes:  [400, 401, 402, 403, 404, 405]
+            handler:              buffered
+        buffered:
+            type:                 buffer
+            handler:              swift
+        swift:
+            type:                 swift_mailer
+            from_email:           '%env(MAILER_SENDER)%'
+            to_email:             '%env(MAILER_RECIPIENT)%'
+            subject:              "GLOBULIO: An Error Occurred!"
+            level:                debug

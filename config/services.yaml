@@ -1,0 +1,48 @@
+parameters:
+    locale:                         de
+
+    # Sonata Admin Options
+    sonata_admin.title:             globul.io
+    sonata_admin.title_logo:        assets/images/logo.png
+
+    # Sonata SEO Options
+    sonata_seo.title:               globul.io - Homöopathie Suchmaschine
+    sonata_seo.image:               https://globul.io/assets/img/logo.jpg
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Domain
+    App\Domain\:
+        resource: '../src/Domain/'
+        exclude: '../src/Domain/*/{Event,Model}'
+
+    # Infrastructure
+    App\Infrastructure\Client\:
+        resource: '../src/Infrastructure/Client'
+
+    App\Infrastructure\Crawler\:
+        resource: '../src/Infrastructure/Crawler'
+
+    App\Infrastructure\Http\Action\:
+        resource: '../src/Infrastructure/Http/Action'
+        tags: ['controller.service_arguments']
+
+    App\Infrastructure\Http\Admin\:
+        resource: '../src/Infrastructure/Http/Admin'
+        tags: ['sonata.admin']
+        public: true
+
+    App\Infrastructure\Http\Form\Type\:
+        resource: '../src/Infrastructure/Http/Form/Type'
+        tags: ['form.type']
+
+    App\Infrastructure\Persistence\:
+        resource: '../src/Infrastructure/Persistence'
+        exclude: '../src/Infrastructure/Persistence/{Entity,Pager}'
+
+    App\Domain\Repository\FlagRepository: '@App\Infrastructure\Persistence\Repository\FlagDoctrineRepository'
+    App\Domain\Repository\ProducerRepository: '@App\Infrastructure\Persistence\Repository\ProducerDoctrineRepository'
+    App\Domain\Repository\ProductRepository:  '@App\Infrastructure\Persistence\Repository\ProductDoctrineRepository'

@@ -1,0 +1,11 @@
+{% form_theme form '@Core23Form/Form/bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_widget(form.query, {
+    'attr': {
+        placeholder: 'form.placeholder_query'|trans({}, 'App')
+    }
+}) }}
+
+<input type="submit" value="{{ 'search_product.submit'|trans({}, 'App') }}" class="btn btn-default"/>
+{{ form_end(form) }}

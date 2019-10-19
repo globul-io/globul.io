@@ -1,0 +1,37 @@
+sonata_admin:
+    title:          "%sonata_admin.title%"
+    title_logo:     "%sonata_admin.title_logo%"
+
+    security:
+        handler:    sonata.admin.security.handler.role
+
+    options:
+        enable_jms_di_extra_autoregistration: false
+
+    assets:
+        extra_javascripts:
+            - bundles/fosckeditor/ckeditor.js
+            - bundles/sonatadashboard/sonata-dashboard.back.min.js
+            - bundles/sonataformatter/vendor/markitup-markitup/markitup/jquery.markitup.js
+            - bundles/sonataformatter/markitup/sets/markdown/set.js
+            - bundles/sonataformatter/markitup/sets/html/set.js
+            - bundles/sonataformatter/markitup/sets/textile/set.js
+
+        extra_stylesheets:
+            - bundles/sonatadashboard/sonata-dashboard.back.min.css
+            - bundles/sonataformatter/markitup/skins/sonata/style.css
+            - bundles/sonataformatter/markitup/sets/markdown/style.css
+            - bundles/sonataformatter/markitup/sets/html/style.css
+            - bundles/sonataformatter/markitup/sets/textile/style.css
+
+    dashboard:
+        blocks:
+            - { position: left, type: 'sonata.page.block.pagelist', settings: { mode: admin, title: 'Inhalte verwalten' } }
+
+        groups:
+            sonata_user:
+                icon: '<i class="fa fa-users"></i>'
+            sonata_page:
+                icon: '<i class="fa fa-sitemap"></i>'
+            sonata_administration:
+                icon: '<i class="fa fa-cogs"></i>'

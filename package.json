@@ -1,0 +1,29 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.4.3",
+        "@babel/preset-env": "^7.4.3",
+        "@symfony/webpack-encore": "^0.21.0",
+        "autoprefixer": "^9.7.1",
+        "css-loader": "^1.0.1",
+        "less": "^3.8.1",
+        "less-loader": "^4.1.0",
+        "node-sass": "^4.13.0",
+        "postcss-loader": "^3.0.0",
+        "sass-loader": "^7.1.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@composer-asset/core23--form-extensions": "file:./vendor/foxy/composer-asset/core23/form-extensions",
+        "@composer-asset/core23--gdpr-bundle": "file:./vendor/foxy/composer-asset/core23/gdpr-bundle",
+        "@composer-asset/sonata-project--page-bundle": "file:./vendor/foxy/composer-asset/sonata-project/page-bundle",
+        "font-awesome": "^4.7"
+    }
+}

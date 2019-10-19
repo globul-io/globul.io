@@ -1,0 +1,7 @@
+sonata_cache:
+   caches:
+       symfony:
+           token:   "%env(APP_SECRET)%"
+           timeout:
+               RCV: { sec: 2, usec: 0 }
+               SND: { sec: 2, usec: 0 }

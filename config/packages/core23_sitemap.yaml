@@ -1,0 +1,10 @@
+core23_sitemap:
+    cache:
+        service: 'cache.provider.sitemap_cache'
+
+cache_adapter:
+    providers:
+        sitemap_cache:
+            factory: 'cache.factory.doctrine_filesystem'
+            options:
+                directory: '%kernel.cache_dir%/cache'

@@ -1,0 +1,99 @@
+{% extends '@SonataPage/base_layout.html.twig' %}
+
+{% block sonata_page_container %}
+    {% block layout_wrapper_head %}
+        <div class="container">
+    {% endblock %}
+
+    {% block page_information %}
+        {% if sonata_page.isEditor and page is defined %}
+            {% if page.edited %}
+                <div class="alert alert-warning alert-fixed">
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-label="{{ 'message_close'|trans({}, 'SonataPageBundle') }}">&times;
+                    </button>
+                    <i class="fa fa-edit"
+                       aria-hidden="true"></i> {{ 'header.page_is_edited'|trans({}, 'SonataPageBundle') }}
+
+                    <a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'create', page) }}" target="_blank"
+                       class="btn btn-success btn-xs">
+                        <i class="fa fa-code-fork"
+                           aria-hidden="true"></i> {{ "header.create_snapshot"|trans({}, 'SonataPageBundle') }}
+                    </a>
+                </div>
+            {% endif %}
+            {% if not page.enabled %}
+                <div class="alert alert-danger alert-fixed">
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-label="{{ 'message_close'|trans({}, 'SonataPageBundle') }}">&times;
+                    </button>
+                    <i class="fa fa-eye-slash"
+                       aria-hidden="true"></i> {{ 'header.page_is_disabled'|trans({}, 'SonataPageBundle') }}
+
+                    <a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}" target="_blank"
+                       class="btn btn-primary btn-xs">
+                        <i class="fa fa-pencil-square-o"
+                           aria-hidden="true"></i> {{ "header.edit_page"|trans({}, 'SonataPageBundle') }}
+                    </a>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+
+    {% block layout_header %}
+        <header class="page-header">
+            <a href="/">
+                <h1>globul.io</h1>
+            </a>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    {{ sonata_block_render({ 'type': 'sonata.block.service.menu' }, {
+                        'menu_name': 'static_main',
+                    }) }}
+                    <div class="navbar-form navbar-right">
+                        {{ render(controller('App\\Infrastructure\\Http\\Action\\SearchFormAction')) }}
+                    </div>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    {% if page is defined %}
+        {% block layout_content %}
+            <div class="page-content">
+                {% if page is defined %}
+                    {{ sonata_page_render_container('content_top', page) }}
+                {% endif %}
+
+                {% block page_content %}
+                    {% if content is defined %}
+                        {{ content|raw }}
+                    {% else %}
+                        {% set content = block('content') is defined ? block('content') : null %}
+                        {% if content|length > 0 %}
+                            {{ content|raw }}
+                        {% elseif page is defined %}
+                            {{ sonata_page_render_container('content', page) }}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+
+                {% if page is defined %}
+                    {{ sonata_page_render_container('content_bottom', page) }}
+                {% endif %}
+            </div>
+        {% endblock %}
+    {% elseif block('content') is defined %}
+        {{ block('content') }}
+    {% endif %}
+
+    {% block layout_footer %}
+        <footer class="page-footer">
+            {{ sonata_page_render_container('footer', 'global') }}
+        </footer>
+    {% endblock %}
+
+    {% block layout_wrapper_foot %}
+        </div>
+    {% endblock %}
+{% endblock %}

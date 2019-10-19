@@ -1,0 +1,53 @@
+{%- block sonata_page_html_tag -%}
+<!DOCTYPE html>
+<html {{ sonata_seo_html_attributes() }}>
+{% endblock %}
+{% block sonata_page_head %}
+    <head {{ sonata_seo_head_attributes() }}>
+        {{ sonata_seo_title() }}
+        {{ sonata_seo_metadatas() }}
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_lang_alternates() }}
+
+        {% block page_head %}{% endblock %}
+
+        {% block sonata_page_stylesheets %}
+            {{ encore_entry_link_tags('frontend') }}
+        {% endblock %}
+
+        {% block page_stylesheets %}{% endblock %}
+
+        {% block sonata_page_javascripts %}
+            {{ encore_entry_script_tags('frontend') }}
+        {% endblock %}
+
+        {% block page_javascripts %}{% endblock %}
+    </head>
+{% endblock %}
+
+{% block sonata_page_body_tag %}
+<body>{% endblock %}
+
+{% block sonata_page_container %}
+    {% block page_container %}{% endblock %} {# Deprecated block #}
+{% endblock %}
+
+{% block sonata_page_asset_footer %}
+    {% block page_asset_footer %} {# Deprecated block #}
+        {% if page is defined %}
+        {% if page.javascript|length > 0 %}
+            <script>
+                {{ page.javascript|raw }}
+            </script>
+        {% endif %}
+
+        {% if page.stylesheet|length > 0 %}
+            <style>
+                {{ page.stylesheet|raw }}
+            </style>
+        {% endif %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+</body>
+</html>

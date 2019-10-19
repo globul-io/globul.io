@@ -1,0 +1,42 @@
+sonata_formatter:
+    default_formatter: richhtml
+
+    formatters:
+        markdown:
+            service: sonata.formatter.text.markdown
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+
+        rawhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+
+fos_ck_editor:
+    default_config: default
+    configs:
+        default:
+            toolbar: "default"
+            locale: "de"
+            height: 400
+            allowedContent: true
+            extraAllowedContent: 'i;span'
+
+    toolbars:
+        configs:
+            default: [ "@tool", "@edit", "@maximize", "/", "@format", "@style", "@link" ]
+        items:
+            tool:     [ 'Source', '-', 'Preview' ]
+            edit:     [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]
+            maximize: [ 'Maximize' ]
+            format:   [ 'Format', '-', 'Bold', 'Italic', 'Underline', 'Strike' ]
+            style:    [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'Image', 'Table', '-', 'FontAwesome']
+            link:     [ 'Link', 'Unlink' ]

@@ -1,0 +1,14 @@
+{%- set _block_class = block('block_class') is defined ? block('block_class') : null -%}
+
+{% if sonata_page.isEditor() and block is defined %}
+    <!-- start rendering, block.id: {{ block.id }} - page.id: {% if block.page|default(false) %}{{ block.page.id }}{% else %}no related page{% endif %} - name: {{ block.name }} -->
+{% endif %}
+
+    {% if _block_class|trim %}
+<div class="{{ _block_class|raw }}">{% endif %}
+    {% block block %}EMPTY CONTENT{% endblock %}
+    {% if _block_class|trim %}</div>{% endif %}
+
+{% if sonata_page.isEditor() and block is defined %}
+    <!-- end rendering, block.id: {{ block.id }} - page.id: {% if block.page|default(false) %}{{ block.page.id }}{% else %}no related page{% endif %}  - name: {{ block.name }} -->
+{% endif %}
