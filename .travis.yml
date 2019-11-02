@@ -42,7 +42,7 @@ before_install:
   - gem install yaml-lint
 
 install:
-  - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+  - composer update --prefer-dist --no-interaction
 
 script: make $TARGET
 
