@@ -21,9 +21,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@composer-asset/core23--form-extensions": "file:./vendor/foxy/composer-asset/core23/form-extensions",
-        "@composer-asset/core23--gdpr-bundle": "file:./vendor/foxy/composer-asset/core23/gdpr-bundle",
-        "@composer-asset/sonata-project--page-bundle": "file:./vendor/foxy/composer-asset/sonata-project/page-bundle",
         "font-awesome": "^4.7"
     }
 }
