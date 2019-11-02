@@ -2,7 +2,7 @@
 
 {% block sonata_page_container %}
     <div class="github-ribbon">
-      <a target="_blank" href="https://github.com/globul-io/globul.io">Fork me on GitHub</a>
+        <a target="_blank" href="https://github.com/globul-io/globul.io">Fork me on GitHub</a>
     </div>
 
     {% block layout_wrapper_head %}
@@ -16,8 +16,9 @@
                     <button type="button" class="close" data-dismiss="alert"
                             aria-label="{{ 'message_close'|trans({}, 'SonataPageBundle') }}">&times;
                     </button>
-                    <i class="fa fa-edit"
-                       aria-hidden="true"></i> {{ 'header.page_is_edited'|trans({}, 'SonataPageBundle') }}
+
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                    {{ 'header.page_is_edited'|trans({}, 'SonataPageBundle') }}
 
                     <a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'create', page) }}" target="_blank"
                        class="btn btn-success btn-xs">
@@ -31,13 +32,14 @@
                     <button type="button" class="close" data-dismiss="alert"
                             aria-label="{{ 'message_close'|trans({}, 'SonataPageBundle') }}">&times;
                     </button>
-                    <i class="fa fa-eye-slash"
-                       aria-hidden="true"></i> {{ 'header.page_is_disabled'|trans({}, 'SonataPageBundle') }}
+
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                    {{ 'header.page_is_disabled'|trans({}, 'SonataPageBundle') }}
 
                     <a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}" target="_blank"
                        class="btn btn-primary btn-xs">
-                        <i class="fa fa-pencil-square-o"
-                           aria-hidden="true"></i> {{ "header.edit_page"|trans({}, 'SonataPageBundle') }}
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        {{ "header.edit_page"|trans({}, 'SonataPageBundle') }}
                     </a>
                 </div>
             {% endif %}
