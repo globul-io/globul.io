@@ -1,9 +1,8 @@
 globul.io - Homöopathie Suchmaschine
 ====================================
 
-[![Build Status](https://travis-ci.com/globul-io/globul.io.svg)](https://travis-ci.com/globul-io/globul.io)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/globul-io/globul.io/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/globul-io/globul.io)
-[![Coverage Status](https://coveralls.io/repos/globul-io/globul.io/badge.svg)](https://coveralls.io/r/globul-io/globul.io)
+[![Continuous Integration](https://github.com/globul-io/globul.io/workflows/Continuous%20Integration/badge.svg)](https://github.com/globul-io/globul.io/actions)
+[![Code Coverage](https://codecov.io/gh/globul-io/globul.io/branch/master/graph/badge.svg)](https://codecov.io/gh/globul-io/globul.io)
 
 Meta-Suchmaschine um "Hokuspokus"-Medikamente und Homöopathie zu entlarven.
 
