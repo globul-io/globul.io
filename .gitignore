@@ -1,4 +1,6 @@
 /.sass-cache/
+/bin/
+!/bin/console
 /var/*
 /var/build/
 !/var/cache
