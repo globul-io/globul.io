@@ -1,14 +1,15 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
-    level: 0
+    level: max
 
     paths:
         - src
         - tests
 
+    autoload_files:
+        - vendor-bin/test/vendor/autoload.php
+
     excludes_analyse:
         - tests/bootstrap.php
-
-    autoload_files:
-        - vendor/autoload.php
-
-    ignoreErrors:
