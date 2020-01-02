@@ -1,5 +1,4 @@
-.PHONY: install update assets webpack reset up down ps clean warm init
-
+.PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo #
@@ -23,150 +22,185 @@ export PROJECT_NAME := $(shell grep PROJECT_NAME .env | awk -F '=' '{print $$NF}
 # Build
 ###################
 
+.PHONY: install
 install: vendor yarn.lock assets
 
 vendor: composer.json composer.lock
-	@composer install --prefer-dist
+	composer validate --strict
+	composer install
+	composer normalize
 
-update: update-composer update-assets
-
-update-composer:
-	@composer update --prefer-dist
+.PHONY: update
+update: vendor
+	composer update
 
 update-assets: yarn.lock
-	@yarn upgrade --force
+	yarn upgrade --force
 
 ###################
 # Assets
 ###################
 
+.PHONY: assets
 assets: webpack symfony-assets
 
+.PHONY: webpack
 webpack: yarn.lock
-	@yarn dev
+	yarn dev
 
-webpack-prod:
-	@yarn build
+.PHONY: prod
+prod:
+	yarn build
 
 yarn.lock: node_modules
-	@yarn install
+	yarn install
 
 node_modules:
-	@mkdir -p $@
+	mkdir -p $@
 
-symfony-assets:
-	@$(console) --env=prod ckeditor:install --clear=skip
-	@$(console) --env=prod assets:install public
+.PHONY: symfony-assets
+symfony-assets: vendor
+	$(console) --env=prod ckeditor:install --clear=skip
+	$(console) --env=prod assets:install public
 
 ###################
 # Quality
 ###################
 
-qs: cs lint normalize permissions test phpstan validate
+.PHONY: qs
+qs: cs lint permissions test phpstan validate
 
-cs:
-	vendor-bin/csfixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix -v
+.PHONY: cs
+cs: vendor
+	vendor/bin/php-cs-fixer fix -v
 
+.PHONY: cs-clean
 cs-clean:
 	find ./src -iname '.php_cs.cache*' -exec rm -r "{}" \;
 
+.PHONY: csf
 csf: cs-clean cs
 
+.PHONY: lint
 lint:
 	find ./src -name '*.yml' -name '*.yaml' -not -path '*/vendor/*' | xargs yaml-lint
 	find . \( -name '*.xml' -or -name '*.xml.dist' -or -name '*.xlf' \) -not -path '*/vendor/*' -not -path '*/node_modules/*' -not -path '*/.*' -type f -exec xmllint --encode UTF-8 --output '{}' --format '{}' \;
-
-validate: warm
 	console lint:yaml config
 	console lint:twig templates
 	console lint:xliff translations
+	console lint:container
+
+.PHONY: validate
+validate: warm
 	console doctrine:schema:validate --skip-sync
 	console doctrine:schema:update --dump-sql
 
-normalize:
-	composer normalize
-
+.PHONY: permissions
 permissions:
 	find ./src -name '*.php' | xargs chmod a-x
 
-test:
-	docker-compose exec php bin/phpunit
+.PHONY: test
+test: vendor
+	vendor/bin/phpunit
 
-coverage:
-	docker-compose exec php bin/phpunit --coverage-clover build/coverage.xml
+.PHONY: coverage
+coverage: vendor
+	vendor/bin/phpunit --coverage-clover build/coverage.xml
 
-phpstan:
-	docker-compose exec php bin/phpstan analyse -c phpstan.neon -l 7 src tests
+.PHONY: phpstan
+phpstan: vendor
+	vendor/bin/phpstan analyse -c phpstan.neon -l 7 src tests
+
+.PHONY: phpstan-baseline
+phpstan-baseline: vendor
+	mkdir -p .build/phpstan
+	echo '' > phpstan-baseline.neon
+	vendor/bin/phpstan analyze --configuration=phpstan.neon --error-format=baselineNeon > phpstan-baseline.neon || true
 
 ###################
 # Docker
 ###################
 
-start: docker-up sync-start
+.PHONY: start
+start: docker-up sync-start sync
 
+.PHONY: stop
 stop: sync-stop docker-down
 
-reset: sync-stop stop
-	@rm -rf var/cache/* var/log/*
-	@docker-compose rm -f -v
+.PHONY: reset
+reset: sync-destory stop
+	rm -rf var/cache/* var/log/*
+	docker-compose rm -f -v
 
+.PHONY: sync-start
 sync-start:
-	@if [[ ! $$(mutagen list) =~ '/var/www/symfony' ]]; then \
-		mutagen create \
+	@if [[ ! $$(mutagen sync list) =~ 'application' ]]; then \
+		mutagen sync create \
+		                -n application \
+						-i ./var/db \
 						-m two-way-resolved \
+						--default-directory-mode=0755 \
+					   	--default-file-mode=0644 \
 					   	--default-owner-beta=www-data \
 					   	`pwd` docker://${PROJECT_NAME}-nginx/var/www/symfony ; \
 	fi
-	@mutagen resume /var/www/symfony
+
+.PHONY: sync
+sync:
+	mutagen sync resume application
 	@echo "Waiting for synchronization to complete"
-	@while [[ ! $$(mutagen list /var/www/symfony) =~ 'Status: Watching for changes' ]]; do \
+	@while [[ ! $$(mutagen sync list application) =~ 'Status: Watching for changes' ]]; do \
 		printf "."; \
 		sleep 10; \
 	done
 	@echo "done"
 
+.PHONY: sync-stop
 sync-stop:
-	@mutagen terminate --all
+	mutagen sync terminate --all
 
+.PHONY: docker-up
 docker-up:
-	@docker-compose up -d
+	docker-compose up -d
 
+.PHONY: docker-down
 docker-down:
-	@docker-compose down
+	docker-compose down
 
+.PHONY: ps
 ps:
-	@docker-compose ps
-	@mutagen list
+	docker-compose ps
+	mutagen list
 
 ###################
 # Application
 ###################
 
+.PHONY: clean
 clean:
-	@$(console) cache:clear
+	$(console) cache:clear
 
+.PHONY: warm
 warm: clean
-	@$(console) cache:warmup
+	$(console) cache:warmup
 
-init: init-database init-routing init-context
+.PHONY: init
+init: init-database init-site init-routing init-context
 
+.PHONY: init-database
 init-database:
-	@$(console) doctrine:schema:update --dump-sql -f
+	$(console) doctrine:schema:update --dump-sql -f
 
+.PHONY: init-site
+init-site:
+	$(console) sonata:page:create-site --enabled=true --name=localhost --locale=- --host=localhost --relativePath=/ --enabledFrom=now --enabledTo="+10 years" --default=true -n
+
+.PHONY: init-routing
 init-routing:
-	@$(console) sonata:page:update-core-routes --site=all --clean
-	@$(console) sonata:page:create-snapshots --site=all
+	$(console) sonata:page:update-core-routes --site=all --clean
+	$(console) sonata:page:create-snapshots --site=all
 
+.PHONY: init-context
 init-context:
-	@$(console) sonata:media:fix-media-context
-	@$(console) sonata:classification:fix-context
-
-###################
-# Catch defaults
-###################
-
-%:
-	@:
-
-.DEFAULT :
-	@:
+	$(console) sonata:media:fix-media-context
+	$(console) sonata:classification:fix-context
