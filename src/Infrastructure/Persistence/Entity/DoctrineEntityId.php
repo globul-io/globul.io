@@ -21,7 +21,7 @@ abstract class DoctrineEntityId extends GuidType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return \is_object($value) ? $value->value() : $value;
+        return \is_object($value) && method_exists($value, 'value') ? $value->value() : $value;
     }
 
     /**

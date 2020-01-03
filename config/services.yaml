@@ -30,11 +30,6 @@ services:
         resource: '../src/Infrastructure/Http/Action'
         tags: ['controller.service_arguments']
 
-    App\Infrastructure\Http\Admin\:
-        resource: '../src/Infrastructure/Http/Admin'
-        tags: ['sonata.admin']
-        public: true
-
     App\Infrastructure\Http\Form\Type\:
         resource: '../src/Infrastructure/Http/Form/Type'
         tags: ['form.type']

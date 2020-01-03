@@ -45,7 +45,7 @@ class Product
 
     private function __construct(Producer $producer, string $name, ?string $abstract)
     {
-        $this->id       = new ProducerId();
+        $this->id       = new ProductId();
         $this->producer = $producer;
         $this->name     = $name;
         $this->abstract = $abstract;

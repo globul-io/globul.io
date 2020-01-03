@@ -1,4 +1,6 @@
 /.sass-cache/
+/bin/
+!/bin/console
 /var/*
 /var/build/
 !/var/cache
@@ -15,8 +17,7 @@
 !var/sessions/.gitkeep
 
 ###> symfony/framework-bundle ###
-/.env
-!/.env.dist
+/.env.local
 /public/bundles/
 /public/upload/
 /var/

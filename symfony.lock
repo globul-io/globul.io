@@ -127,6 +127,18 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "ergebnis/composer-json-normalizer": {
+        "version": "2.0.1"
+    },
+    "ergebnis/composer-normalize": {
+        "version": "2.2.0"
+    },
+    "ergebnis/json-normalizer": {
+        "version": "0.10.1"
+    },
+    "ergebnis/json-printer": {
+        "version": "3.0.2"
+    },
     "foxy/foxy": {
         "version": "1.0.8"
     },
@@ -154,6 +166,9 @@
     "jdorn/sql-formatter": {
         "version": "1.2.17"
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.9"
+    },
     "knplabs/knp-markdown-bundle": {
         "version": "1.7.1"
     },
@@ -165,6 +180,9 @@
     },
     "kunicmarko/sonata-auto-configure-bundle": {
         "version": "0.6.0"
+    },
+    "localheinz/diff": {
+        "version": "1.0.1"
     },
     "michelf/php-markdown": {
         "version": "1.8.0"
@@ -178,11 +196,17 @@
             "config/packages/nelmio_security.yaml"
         ]
     },
+    "ocramius/package-versions": {
+        "version": "1.5.1"
+    },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
     "paragonie/random_compat": {
         "version": "2.0.18"
+    },
+    "php": {
+        "version": "7.4"
     },
     "php-http/cache-plugin": {
         "version": "1.6.0"
@@ -240,6 +264,18 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "sensiolabs/security-checker": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "160c9b600564faa1224e8f387d49ef13ceb8b793"
+        },
+        "files": [
+            "config/packages/security_checker.yaml"
+        ]
     },
     "sllh/composer-lint": {
         "version": "1.0.1"
@@ -329,6 +365,9 @@
     "symfony/asset": {
         "version": "4.3.5"
     },
+    "symfony/browser-kit": {
+        "version": "v4.4.2"
+    },
     "symfony/cache": {
         "version": "4.3.5"
     },
@@ -365,6 +404,12 @@
     },
     "symfony/dom-crawler": {
         "version": "4.3.5"
+    },
+    "symfony/dotenv": {
+        "version": "v4.4.2"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.2"
     },
     "symfony/event-dispatcher": {
         "version": "4.3.5"

@@ -28,8 +28,9 @@ final class ProductItem
 
     private function __construct(string $id, string $name, string $producer)
     {
-        $this->id   = $id;
-        $this->name = $name;
+        $this->id       = $id;
+        $this->name     = $name;
+        $this->producer = $producer;
     }
 
     public function getId(): string

@@ -59,8 +59,16 @@ final class DocumentParser
 
         $content = $this->extractString($node, $multiline);
 
+        if (null === $content) {
+            return null;
+        }
+
         if (!$multiline) {
             $content = preg_replace('/[\r\n]/', '', $content);
+        }
+
+        if (null === $content) {
+            return null;
         }
 
         return $this->cleanString($content);
@@ -101,10 +109,10 @@ final class DocumentParser
         }
 
         $content = $node->html();
-        $content = (string) preg_replace('/<p[^>]*?>/', '', $content);
-        $content = (string) str_replace('</p>', static::NEWLINE, $content);
+        $content = preg_replace('/<p[^>]*?>/', '', $content);
+        $content = str_replace('</p>', static::NEWLINE, $content ?? '');
 
-        return (string) preg_replace('/<br\s?\/?>/i', static::NEWLINE, $content);
+        return preg_replace('/<br\s?\/?>/i', static::NEWLINE, $content);
     }
 
     private function cleanString(string $content): string
@@ -114,6 +122,6 @@ final class DocumentParser
         $content = str_replace(' ,', ', ', $content);
         $content = preg_replace('/\s\s+/', ' ', $content);
 
-        return trim($content);
+        return trim($content ?? '');
     }
 }
